@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khadijah Delay Model (KDM)</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Khadijah Delay Model (KDM)</h1>
+            <p class="subtitle">Accurately predict Khadijah's arrival time based on psychological and social factors</p>
+        </header>
+
+        <main>
+            <section class="calculator">
+                <div class="card">
+                    <h2>Calculate Arrival Time</h2>
+                    <form id="kdm-form">
+                        <div class="input-group">
+                            <label for="t-said">Stated Arrival Time (T_said):</label>
+                            <input type="time" id="t-said" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="gamma">Base Time Penalty (<span class="math-symbol">γ</span>):</label>
+                            <div class="range-with-value">
+                                <input type="range" id="gamma" min="5" max="30" value="15" step="1">
+                                <span id="gamma-value">15 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="mood">Mood Factor (<span class="math-symbol">ε<sub>K</sub></span>): <span class="tooltip" data-tip="1 = best mood (on time), 0 = worst mood (very late)">ⓘ</span></label>
+                            <div class="range-with-value">
+                                <input type="range" id="mood" min="0" max="1" value="0.5" step="0.01">
+                                <span id="mood-value">0.5</span>
+                            </div>
+                            <div class="emoji-scale">
+                                <span>😡</span>
+                                <span>😐</span>
+                                <span>😊</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="dad">Dad Factor (<span class="math-symbol">α<sub>F</sub></span>): <span class="tooltip" data-tip="1 = dad pissed (not coming), 0.9 = dad home (slow), 0.1 = dad not home">ⓘ</span></label>
+                            <div class="range-with-value">
+                                <input type="range" id="dad" min="0" max="1" value="0.1" step="0.01">
+                                <span id="dad-value">0.1</span>
+                            </div>
+                            <div class="dad-indicator" id="dad-indicator">
+                                <span id="dad-status">Dad not home</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="dressup">Dress-up Factor (<span class="math-symbol">β<sub>D</sub></span>): <span class="tooltip" data-tip="1 = full glam (max delay), 0 = already ready">ⓘ</span></label>
+                            <div class="range-with-value">
+                                <input type="range" id="dressup" min="0" max="1" value="0.2" step="0.01">
+                                <span id="dressup-value">0.2</span>
+                            </div>
+                            <div class="dress-scale">
+                                <span>👕</span>
+                                <span>👗</span>
+                                <span>👑</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calculate-btn">Calculate Real Arrival Time</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="results" id="results">
+                <div class="card result-card" id="result-card">
+                    <h2>Arrival Prediction</h2>
+                    <div class="result-content">
+                        <p>Stated arrival time: <span id="result-stated">--:--</span></p>
+                        <p>Expected delay: <span id="result-delay">-- minutes</span></p>
+                        <div class="actual-time">
+                            <h3>Actual arrival time:</h3>
+                            <div class="time-display" id="result-actual">--:--</div>
+                        </div>
+                        <div id="not-coming-warning" class="not-coming">She's not coming! Dad is pissed.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="explanation">
+                <div class="card">
+                    <h2>About the Model</h2>
+                    <div class="formula">
+                        <p><span class="math-symbol">T<sub>real</sub></span> = <span class="math-symbol">T<sub>said</sub></span> + <span class="math-symbol">ΔT</span></p>
+                        <p><span class="math-symbol">ΔT</span> = <span class="math-symbol">γ</span> × [(1 - <span class="math-symbol">ε<sub>K</sub></span>) + <span class="math-symbol">f(α<sub>F</sub>)</span> + <span class="math-symbol">β<sub>D</sub></span>²]</p>
+                    </div>
+
+                    <div class="variables">
+                        <h3>Variable Definitions</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Range</th>
+                                    <th>Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="math-symbol">ε<sub>K</sub></span></td>
+                                    <td>[0, 1]</td>
+                                    <td><strong>Mood factor</strong> – 1 = best mood (on time), 0 = worst mood (very late)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="math-symbol">α<sub>F</sub></span></td>
+                                    <td>[0, 1]</td>
+                                    <td><strong>Dad factor</strong> – 1 = dad pissed = she's <strong>not coming</strong>, values like 0.9 = dad home (slow), 0.1 = dad not home</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="math-symbol">β<sub>D</sub></span></td>
+                                    <td>[0, 1]</td>
+                                    <td><strong>Dress-up factor</strong> – 1 = full glam (max delay), 0 = already ready</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="math-symbol">f(α<sub>F</sub>)</span></td>
+                                    <td>function</td>
+                                    <td>Returns Infinity if <span class="math-symbol">α<sub>F</sub></span> = 1 (she's not coming). Otherwise, returns <span class="math-symbol">α<sub>F</sub></span> as-is.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="notes">
+                        <h3>Notes</h3>
+                        <ul>
+                            <li>You can tweak γ for different baselines (e.g., 10 for optimistic, 20 for chaotic energy).</li>
+                            <li>The model is best interpreted as a satirical-yet-data-driven estimator for "how late Khadijah gonna be fr".</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Khadijah Delay Model (KDM) - A satirical-yet-data-driven arrival time estimator</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

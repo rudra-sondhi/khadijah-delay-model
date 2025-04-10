@@ -1,0 +1,353 @@
+:root {
+    --primary-color: #6c5ce7;
+    --primary-light: #a29bfe;
+    --secondary-color: #fd79a8;
+    --accent-color: #00cec9;
+    --text-color: #2d3436;
+    --text-light: #636e72;
+    --bg-color: #f9f9f9;
+    --card-color: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+main {
+    display: grid;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .explanation {
+        grid-column: 1 / -1;
+    }
+}
+
+.card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+}
+
+h3 {
+    color: var(--primary-color);
+    margin: 1rem 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.input-group {
+    margin-bottom: 1.2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input[type="time"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-color);
+}
+
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, var(--primary-light), var(--primary-color));
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.range-with-value {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.range-with-value span {
+    min-width: 60px;
+    font-weight: 500;
+}
+
+.emoji-scale, .dress-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+    font-size: 1.2rem;
+}
+
+.dad-indicator {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.dad-away {
+    background-color: #55efc4;
+    color: #2d3436;
+}
+
+.dad-home {
+    background-color: #ffeaa7;
+    color: #2d3436;
+}
+
+.dad-pissed {
+    background-color: #ff7675;
+    color: white;
+}
+
+.calculate-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1.5rem;
+}
+
+.calculate-btn:hover {
+    background-color: #5744e0;
+}
+
+.result-card {
+    display: none;
+}
+
+.result-content {
+    padding: 0.5rem 0;
+}
+
+.result-content p {
+    margin-bottom: 0.5rem;
+}
+
+.result-content span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.actual-time {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.time-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin: 0.5rem 0;
+}
+
+.not-coming {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #ff7675;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 6px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+.result-pop {
+    animation: pop 0.5s;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    70% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.formula {
+    background-color: rgba(108, 92, 231, 0.1);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.formula p {
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: rgba(108, 92, 231, 0.1);
+    font-weight: 600;
+}
+
+.notes {
+    background-color: rgba(0, 206, 201, 0.1);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1.5rem;
+}
+
+.notes ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    margin-left: 0.3rem;
+    color: var(--primary-color);
+}
+
+.tooltip-content {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2d3436;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: var(--shadow);
+}
+
+.tooltip-content::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #2d3436;
+}
+
+/* Mathematical symbols styling */
+.math-symbol {
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.1em;
+    letter-spacing: 0.02em;
+}
+
+.math-symbol sub {
+    font-size: 0.75em;
+    font-style: normal;
+    position: relative;
+    bottom: -0.1em;
+    margin-left: 0.05em;
+}
+
+.formula .math-symbol {
+    font-size: 1.15em;
+}
